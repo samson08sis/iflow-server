@@ -25,7 +25,11 @@ app.use(express.json());
 let isConnected;
 
 async function connectDB() {
-  if (isConnected) return;
+  if (isConnected) {
+    console.log("MongoDB already connected");
+    return;
+  }
+  console.log("Connecting to DB...");
   await mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
