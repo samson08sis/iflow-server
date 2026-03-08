@@ -39,10 +39,10 @@ async function connectDB() {
 }
 
 // Routes
-app.use("/api/auth", async (req, res, next) => {
-  connectDB();
-  return authRoutes(req, res, next);
-});
+// app.use("/api/auth", async (req, res, next) => {
+//   connectDB();
+//   return authRoutes(req, res, next);
+// });
 app.use("/", (req, res) => {
   return res.json({ message: "Welcome to iFlow's server!" });
 });
