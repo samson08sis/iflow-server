@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const authRoutes = require("../routes/authRoutes");
+const serverless = require("serverless-http");
 
 const app = express();
 
@@ -38,10 +39,5 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: "Something went wrong!" });
 });
 
-// const PORT = process.env.PORT || 7002;
-// app.listen(PORT, "0.0.0.0", () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
-
-// Export the app for Vercel
-module.exports = app;
+// Export wrapped handler for Vercel
+module.exports = serverless(app);
