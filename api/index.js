@@ -21,14 +21,24 @@ app.use(
 );
 app.use(express.json());
 
-// Database connection
-mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log("MongoDB connection error:", err));
+// Cached DB connection
+let isConnected;
+
+async function connectDB() {
+  if (isConnected) return;
+  await mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  isConnected = true;
+  console.log("MongoDB connected");
+}
 
 // Routes
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", async (req, res, next) => {
+  await connectDB();
+  return authRoutes(req, res, next);
+});
 app.use("/", (req, res) => {
   return res.json({ message: "Welcome to iFlow's server!" });
 });
