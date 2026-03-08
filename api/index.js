@@ -40,7 +40,7 @@ async function connectDB() {
 
 // Routes
 app.use("/api/auth", async (req, res, next) => {
-  await connectDB();
+  connectDB();
   return authRoutes(req, res, next);
 });
 app.use("/", (req, res) => {
@@ -58,3 +58,8 @@ app.use((err, req, res, next) => {
 
 // Export wrapped handler for Vercel
 module.exports = serverless(app);
+
+// const PORT = process.env.PORT || 7002;
+// app.listen(PORT, "0.0.0.0", () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
