@@ -29,6 +29,9 @@ mongoose
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/", (req, res) => {
+  return res.json({ message: "Welcome to iFlow's server!" });
+});
 app.use("/test", (req, res) => {
   return res.json({ hi: "Helli thereafjahd!" });
 });
