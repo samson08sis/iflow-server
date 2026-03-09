@@ -21,33 +21,34 @@ app.use(
 );
 app.use(express.json());
 
-// Cached DB connection
-let isConnected;
+// // Cached DB connection
+// let isConnected;
 
-async function connectDB() {
-  if (isConnected) {
-    console.log("MongoDB already connected");
-    return;
-  }
-  console.log("Connecting to DB...");
-  await mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  isConnected = true;
-  console.log("MongoDB connected");
-}
+// async function connectDB() {
+//   if (isConnected) {
+//     console.log("MongoDB already connected");
+//     return;
+//   }
+//   console.log("Connecting to DB...");
+//   await mongoose.connect(process.env.MONGODB_URI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   });
+//   isConnected = true;
+//   console.log("MongoDB connected");
+// }
 
 // Routes
 // app.use("/api/auth", async (req, res, next) => {
 //   connectDB();
 //   return authRoutes(req, res, next);
 // });
-app.use("/", (req, res) => {
-  return res.json({ message: "Welcome to iFlow's server!" });
-});
+
 app.use("/test", (req, res) => {
   return res.json({ hi: "Helli thereafjahd!" });
+});
+app.use("/", (req, res) => {
+  return res.json({ message: "Welcome to iFlow's server!" });
 });
 
 // Error handling middleware
